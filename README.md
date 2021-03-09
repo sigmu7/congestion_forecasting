@@ -21,7 +21,10 @@ A sample plot for three sensors shows that the ‘peak’ period, represented by
 Finally, following the scaling process, several sensor time series were tested for stationarity using unit root test through the Dickey-Fuller test (Dickey and Fuller (1979)). For all the test the p-value for the test was very close to 0. This implies that there is no unit root among any of the series. 
 70% of the available time period of data is used for training. 20% for validation and 10% for testing.
 
-## Architectures & Hyperparameters Tested
+## Metrics, Architectures & Hyperparameters Tested
+
+#### Metrics
+![](/images/mae.png) ![](/images/rmse.png)
 
 #### Baseline
 - VAR
@@ -38,5 +41,24 @@ Finally, following the scaling process, several sensor time series were tested f
 - no. of epochs = 40
 - batch size = 128
 - ReLU activation function
+
+##  Forecast Error Comparison
+#### Architecture Comparison w/ MAE
+![](/images/rnn_arch_mae_comparison.png)
+#### Hyperparameter comparison
+![](/images/optim_lr_comparison.png)
+#### Architecture Comparison w/ RMSE
+![](/images/rnn_arch_rmse_comparison.png)
+#### Input Sequence Length Comparison
+![](/images/input_seq_length_illustration_mae.png)
+
+#### Compare different models for overall performance
+In order to compare the performance of model trained using MAE vs RMSE as loss metrics, the cumulative distribution (CDF) of prediction errors for the better models for different sensors on test data is plotted. The closer each curve of the CDF is to the right edge the worse is the model performance. GRU with 3 layers is worse than all others. The GRU 1 layer with 128 neurons, LSTM layer with 128 neurons are marginally better than all others.
+![](/images/pred_error_cumu_dist.png)
+
+#### Comparison of Model Forecasts
+![](/images/rnn_pred_err_accident_comparison.png)
+The "optimal" model is able to predict the inception of peak period better than other models. Also, in this case, based on the observed data, it appears as if that around time unit 220-225, the peak period is about to finish and the observed speed recovers to free flowing speed. However, at time unit 230, there is another drop in speed. Usually, this happens when there is an accident. The GRU 2-layer models are able to predict this feature, albeit, not as accurately, among which again the optimal model performs better.
+Once reason that the optimal model may not detect the second onset of congestion could be because that the architecture is not learning congestion from other sensors. As the neighboring sensors are close to each other, the congestion detected at one sensor could reach the adjacent sensor in some time due to the nature of traffic flow. Thus, there is correlation between speed observed at neighboring sensors. This spatial correlation needs to be exploited and added to the temporal learning of an RNN to obtain predictions with better accuracy.
 
 
