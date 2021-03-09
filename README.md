@@ -1,5 +1,4 @@
-# congestion_forecasting
-Repo for forecasting highway traffic congestion using Deep RNNs (LSTM, GRU)
+# Forecasting Highway Traffic Congestion using Deep Recurrent Neural Network Models
 
 ## TL,DR
 Forecasting congestion ahead of time is a very important aspect in not only transportation system management, but also a key input to more modern use cases such as ETA estimation for app-based services (Uber/Lyft, Doordash or Grubhub deliveries). Congestion prediction involves using past observations of congestion – using metrics such as speed, travel time – to predict the observations in future. In this study, congestion prediction was performed using deep learning recurrent neural networks. Various architectures of long short-term memory (LSTM) and gated recurrent unit (GRU) were coded and evaluated for their performance in Keras. The performance was compared with baseline methods such as vector autoregression (VAR) and historical average.  Experiments with number of units per layer, number of layers, optimizers, learning rate and lengths of sequence input were performed. Experiments are also performed on a smaller subset of sensors to incorporate spatial / network information into the forecasting process using convolutional LSTM architecture. 
@@ -61,4 +60,16 @@ In order to compare the performance of model trained using MAE vs RMSE as loss m
 The "optimal" model is able to predict the inception of peak period better than other models. Also, in this case, based on the observed data, it appears as if that around time unit 220-225, the peak period is about to finish and the observed speed recovers to free flowing speed. However, at time unit 230, there is another drop in speed. Usually, this happens when there is an accident. The GRU 2-layer models are able to predict this feature, albeit, not as accurately, among which again the optimal model performs better.
 Once reason that the optimal model may not detect the second onset of congestion could be because that the architecture is not learning congestion from other sensors. As the neighboring sensors are close to each other, the congestion detected at one sensor could reach the adjacent sensor in some time due to the nature of traffic flow. Thus, there is correlation between speed observed at neighboring sensors. This spatial correlation needs to be exploited and added to the temporal learning of an RNN to obtain predictions with better accuracy.
 
+## Incorporating Spatial Information
+Heatmap of congestion shows the propagation of congestion from downstream section of highway to upstream.
+![](/images/need_for_spatial_info.png)
+
+Shi et al. (2015) proposed a new architecture called convolutional LSTM (conv-LSTM) that uses information from neighboring spatial observations in addition to temporatl to forecast. The authors used this approach in precipitation forecasting using data from precipitation monitoring stations over a grid. A sliding filter is applied across various stations as a convolution operation. An illustration of conv-LSTM:
+![](/images/lstm_convlstm.png)
+
+For the current use case of highway congestion forecasting, conv-LSTM is applied only on one dimension.
+
+#### Forecasting error comparison with spatial network information
+![](/images/rnns_vs_convlstm_table.png)
+![](/images/rnns_vs_convlstm.png)
 
