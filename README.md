@@ -23,7 +23,6 @@ Finally, following the scaling process, several sensor time series were tested f
 ## Metrics, Architectures & Hyperparameters Tested
 
 #### Metrics
-<img src="/images/mae.png" width="10" height="2"> 
 ![](/images/mae.png)
 ![](/images/rmse.png)
 
