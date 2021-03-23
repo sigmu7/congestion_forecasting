@@ -14,7 +14,7 @@ The impact of congestion can be mitigated using advanced information provision t
 Data source for this project is average speed collected by sensors installed on highways in California – a system known as the Performance Measurement System (PeMS) (Caltrans, 2019). The dataset consists of average speed records for 207 sensors for the duration between February and June 2012 collected at a 5-minute interval. These sensors are located on sections of highways in Los Angeles County, namely, I-5, US-101, CA-170, CA-134, CA-2, CA-110.
 ![](/images/Study_Area.png)
 
-A sample plot for three sensors shows that the ‘peak’ period, represented by low speed, can occur during different times of the day. Once compiled, the data was normalized. Both the StandardScaler using mean and standard deviation and MinMax scalers available in the Keras API were used.  The MinMaxScaler provided better training results, which was used for all further analyses and experiments.
+A sample plot for three sensors shows that the ‘peak’ period, represented by low speed, can occur during different times of the day. Once compiled, the data was normalized. Both the StandardScaler using mean and standard deviation and MinMax scalers available in the Scikit-learn API were used.  The MinMaxScaler provided better training results, which was used for all further analyses and experiments.
 ![](/images/time_series_plot_1.png)
 
 Finally, following the scaling process, several sensor time series were tested for stationarity using unit root test through the Dickey-Fuller test (Dickey and Fuller (1979)). For all the test the p-value for the test was very close to 0. This implies that there is no unit root among any of the series. 
